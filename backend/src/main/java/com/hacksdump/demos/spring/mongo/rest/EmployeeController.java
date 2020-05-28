@@ -2,7 +2,6 @@ package com.hacksdump.demos.spring.mongo.rest;
 
 import com.hacksdump.demos.spring.mongo.rest.repository.Employee;
 import com.hacksdump.demos.spring.mongo.rest.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,13 +9,10 @@ import java.util.Collection;
 
 @Controller
 public class EmployeeController {
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    @RequestMapping(value = "hello", method = RequestMethod.GET)
-    public @ResponseBody
-    String sayHello() {
-        return "Hello";
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
     @RequestMapping(value = "employee", method = RequestMethod.POST)

@@ -1,6 +1,7 @@
 package com.hacksdump.demos.spring.mongo.rest.repository;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 public class Employee {
     @Id
@@ -49,6 +50,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return id;
+        return "[" + id + "]: " + name + " " + phone;
     }
 }
