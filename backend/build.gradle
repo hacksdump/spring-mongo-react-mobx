@@ -4,6 +4,11 @@ plugins {
 	id 'java'
 }
 
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'com.hacksdump.demos.spring.mongo.rest.Application'
+
 group = 'com.hacksdump.demos.spring.mongo'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '14'
