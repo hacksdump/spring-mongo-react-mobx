@@ -4,12 +4,9 @@ import { employeeUrl } from "./paths";
 
 export function getAllEmployees() {
   return new Promise((resolve, reject) => {
-    // axios
-    //   .get(employeeUrl)
-    //   .then((response) => resolve(response.data))
-    //   .catch((e) => reject(e));
-    fetch(employeeUrl).then((response) =>
-      response.json().then((data) => resolve(data))
-    );
+    axios
+      .get(employeeUrl)
+      .then((response) => resolve(response.data))
+      .catch((e) => reject(e));
   });
 }

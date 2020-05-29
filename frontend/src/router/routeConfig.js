@@ -1,6 +1,6 @@
 import React from "react";
-import Home from "./route-components/Home";
-import Employees from "./route-components/Employees";
+import Home from "./route-components/Home/index";
+import Employees from "./route-components/Employees/index";
 
 const routeLinkData = [
   {

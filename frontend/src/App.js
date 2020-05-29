@@ -4,11 +4,7 @@ import "./App.scss";
 import RoutedApp from "./router/RoutedApp";
 
 function App() {
-  return (
-    <div>
-      <RoutedApp />
-    </div>
-  );
+  return <RoutedApp />;
 }
 
 export default App;
