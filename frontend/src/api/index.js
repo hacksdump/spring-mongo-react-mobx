@@ -10,3 +10,12 @@ export function getAllEmployees() {
       .catch((e) => reject(e));
   });
 }
+
+export function createEmployee(employeeData) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(employeeUrl, employeeData)
+      .then((response) => resolve(response.data))
+      .catch((e) => reject(e));
+  });
+}

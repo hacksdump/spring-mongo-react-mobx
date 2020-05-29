@@ -8,7 +8,6 @@ const store = observable({
   },
   loadEmployees: () => {
     if (!store.fetchStatus.employees) {
-      console.log("trying to load");
       store.fetchStatus.employees = true;
       getAllEmployees().then((data) => {
         store.employees = data;

@@ -1,15 +1,23 @@
 import React from "react";
 import routeLinkData from "router/routeConfig";
-import { Link } from "react-router-dom";
-import styles from "./Navbar.module.scss";
+import { Link, useLocation } from "react-router-dom";
 import { Menu } from "antd";
 
-export default function Index() {
+function routeToKey(route) {
+  return routeLinkData.find((item) => item.path == route).key;
+}
+
+export default function Navbar(props) {
+  console.log(useLocation().pathname);
   return (
     <nav>
-      <Menu theme="dark" mode="horizontal">
+      <Menu
+        theme="dark"
+        mode="horizontal"
+        defaultSelectedKeys={routeToKey(useLocation().pathname)}
+      >
         {routeLinkData.map((routeData) => (
-          <Menu.Item key={routeData.path}>
+          <Menu.Item key={routeData.key}>
             <Link to={routeData.path}>{routeData.displayText}</Link>
           </Menu.Item>
         ))}

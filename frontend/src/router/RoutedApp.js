@@ -11,7 +11,6 @@ import { Layout } from "antd";
 import { observer } from "mobx-react";
 
 const RoutedApp = observer((props) => {
-  console.log(props.store.employees.length);
   const store = props.store;
   return (
     <Router>

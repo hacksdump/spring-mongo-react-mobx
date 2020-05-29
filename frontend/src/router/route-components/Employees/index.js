@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { getAllEmployees } from "api";
-import Card from "antd/es/card";
+import React from "react";
 import styles from "./Employee.module.scss";
+import EmployeeCard from "../../../components/EmployeeCard";
 
 export default function Employees(props) {
   const employees = props.employees;
@@ -10,14 +9,11 @@ export default function Employees(props) {
     <div className={styles.container}>
       {employees.map((employeeData) =>
         employeeData.name && employeeData.phone && employeeData.address ? (
-          <Card
-            className={styles.card}
-            title={employeeData.name}
-            key={employeeData.phone}
-          >
-            <p className={styles.phone}>{employeeData.phone}</p>
-            <p className={styles.address}>{employeeData.address}</p>
-          </Card>
+          <EmployeeCard
+            name={employeeData.name}
+            phone={employeeData.phone}
+            address={employeeData.address}
+          />
         ) : null
       )}
     </div>

@@ -1,0 +1,13 @@
+.card {
+  position: relative;
+  margin: 10px auto;
+  width: 400px;
+  height: fit-content;
+  .phone {
+    font-weight: bold;
+  }
+
+  .address {
+    font-size: 0.8em;
+  }
+}
