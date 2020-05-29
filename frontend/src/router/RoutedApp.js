@@ -8,8 +8,11 @@ import RouterView from "./RouterView";
 import Footer from "components/Footer";
 
 import { Layout } from "antd";
+import { observer } from "mobx-react";
 
-export default function RoutedApp() {
+const RoutedApp = observer((props) => {
+  console.log(props.store.employees.length);
+  const store = props.store;
   return (
     <Router>
       <Layout className={styles.container}>
@@ -17,7 +20,12 @@ export default function RoutedApp() {
           <Navbar />
         </Layout.Header>
         <Layout.Content>
-          <RouterView />
+          <RouterView
+            employeeProps={{
+              employees: store.employees,
+              fetchEmployees: store.loadEmployees,
+            }}
+          />
         </Layout.Content>
         <Layout.Footer>
           <Footer />
@@ -25,4 +33,6 @@ export default function RoutedApp() {
       </Layout>
     </Router>
   );
-}
+});
+
+export default RoutedApp;

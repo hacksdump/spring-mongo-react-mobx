@@ -2,9 +2,10 @@ import React from "react";
 import "./App.scss";
 
 import RoutedApp from "./router/RoutedApp";
+import { observer } from "mobx-react";
 
-function App() {
-  return <RoutedApp />;
-}
+const App = observer((props) => {
+  return <RoutedApp store={props.store} />;
+});
 
 export default App;

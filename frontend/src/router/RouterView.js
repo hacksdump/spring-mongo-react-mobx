@@ -4,7 +4,7 @@ import React from "react";
 import routeConfig from "./routeConfig";
 import styles from "./RouterView.module.scss";
 
-export default function RouterView() {
+export default function RouterView(props) {
   return (
     <div className={styles.container}>
       <Switch>
@@ -12,8 +12,9 @@ export default function RouterView() {
           <Route
             path={routeData.path}
             exact={routeData.exact}
-            render={() => routeData.component}
-          ></Route>
+            render={() => routeData.component(props[routeData.propKey])}
+            key={routeData.path}
+          />
         ))}
       </Switch>
     </div>
