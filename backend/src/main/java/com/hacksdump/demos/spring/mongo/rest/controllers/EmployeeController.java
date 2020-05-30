@@ -1,15 +1,22 @@
 package com.hacksdump.demos.spring.mongo.rest.controllers;
 
+import com.hacksdump.demos.spring.mongo.rest.errors.AlreadyExistsError;
 import com.hacksdump.demos.spring.mongo.rest.errors.DepartmentDoesNotExistError;
+import com.hacksdump.demos.spring.mongo.rest.errors.MissingFieldsError;
 import com.hacksdump.demos.spring.mongo.rest.exceptions.DepartmentDoesNotExistException;
 import com.hacksdump.demos.spring.mongo.rest.repository.Department;
 import com.hacksdump.demos.spring.mongo.rest.repository.DepartmentRepository;
 import com.hacksdump.demos.spring.mongo.rest.repository.Employee;
 import com.hacksdump.demos.spring.mongo.rest.repository.EmployeeRepository;
+import com.mongodb.MongoWriteException;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -25,7 +32,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "employee", method = RequestMethod.POST)
     public @ResponseBody
-    Employee create(@RequestBody Employee employee, HttpServletResponse resp) {
+    Employee create(@RequestBody @Valid Employee employee, HttpServletResponse resp) {
         Optional<Department> department = departmentRepository.findById(employee.getDepartment().getId());
         if (department.isPresent()) {
             employee.setDepartment(department.get());
@@ -47,5 +54,25 @@ public class EmployeeController {
             DepartmentDoesNotExistException e, HttpServletResponse resp) {
         resp.setStatus(e.getStatusCode().value());
         return new DepartmentDoesNotExistError();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public @ResponseBody
+    MissingFieldsError handleMissingValues(MethodArgumentNotValidException e) {
+        var missingFieldsError = new MissingFieldsError();
+        for (var fieldError : e.getBindingResult().getFieldErrors()) {
+            String missingField = fieldError.getField();
+            if(fieldError.getCode().equals("NotNull")) {
+                missingFieldsError.addMissingFieldName(missingField);
+            }
+        }
+        return missingFieldsError;
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    @ResponseStatus(value = HttpStatus.CONFLICT)
+    public @ResponseBody
+    AlreadyExistsError handleDuplicateEntry(DuplicateKeyException e) {
+        return new AlreadyExistsError("This employee already exists");
     }
 }

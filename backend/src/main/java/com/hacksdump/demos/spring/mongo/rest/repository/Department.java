@@ -4,11 +4,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
+
 @Document
 public class Department {
     @Id
     private String id;
     @Indexed(unique = true)
+    @NotNull
     private String name;
 
     public Department() {}

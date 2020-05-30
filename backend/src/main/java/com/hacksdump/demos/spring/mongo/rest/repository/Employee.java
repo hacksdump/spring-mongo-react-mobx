@@ -4,20 +4,30 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.*;
+
 @Document
 public class Employee {
     @Id
     private String id;
+    @NotNull
     private String name;
     @Indexed(unique = true)
+    @NotNull
+    @Min(10)
     private String phone;
+    @NotNull
     private String address;
     @Indexed(unique = true)
+    @Email
+    @NotNull
     private String email;
     private Gender gender;
+    @NotNull
     private Department department;
 
     public Employee() {
+        gender = Gender.UNSPECIFIED;
     }
 
     public String getId() {
