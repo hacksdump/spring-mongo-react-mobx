@@ -1,13 +1,18 @@
 package com.hacksdump.demos.spring.mongo.rest.repository;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Employee {
     @Id
     private String id;
     private String name;
+    @Indexed(unique = true)
     private String phone;
     private String address;
+    @Indexed(unique = true)
     private String email;
     private Gender gender;
     private Department department;
@@ -73,6 +78,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "[" + id + "]: " + name + " " + phone;
+        return String.format("[ id: %s ]: %s %s %s %s %s", id, name, phone, address, gender, department);
     }
 }
