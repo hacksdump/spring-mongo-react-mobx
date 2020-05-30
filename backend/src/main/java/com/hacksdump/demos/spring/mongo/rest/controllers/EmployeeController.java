@@ -1,4 +1,4 @@
-package com.hacksdump.demos.spring.mongo.rest;
+package com.hacksdump.demos.spring.mongo.rest.controllers;
 
 import com.hacksdump.demos.spring.mongo.rest.repository.Employee;
 import com.hacksdump.demos.spring.mongo.rest.repository.EmployeeRepository;
