@@ -1,5 +1,10 @@
 import { observable } from "mobx";
-import { getAllDepartments, getAllEmployees, createEmployee } from "api";
+import {
+  getAllDepartments,
+  getAllEmployees,
+  createEmployee,
+  createDepartment,
+} from "api";
 
 const store = observable({
   employees: [],
@@ -32,6 +37,19 @@ const store = observable({
           resolve();
         })
         .catch(() => reject());
+    });
+  },
+  createDepartment: (data) => {
+    return new Promise((resolve, reject) => {
+      createDepartment(data)
+        .then(() => {
+          resolve();
+        })
+        .catch(() => reject())
+        .finally(() => {
+          store.fetchStatus.departments = false;
+          store.loadDepartments();
+        });
     });
   },
 });

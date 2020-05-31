@@ -28,3 +28,12 @@ export function createEmployee(employeeData) {
       .catch((e) => reject(e));
   });
 }
+
+export function createDepartment(departmentData) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(departmentUrl, departmentData)
+      .then((response) => resolve(response.data))
+      .catch((e) => reject(e));
+  });
+}

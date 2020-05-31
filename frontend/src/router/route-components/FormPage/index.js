@@ -8,6 +8,7 @@ export default function FormPage(props) {
       <NewEmployeeForm
         departments={props.departments}
         createEmployee={props.createEmployee}
+        createDepartment={props.createDepartment}
       />
     </div>
   );
