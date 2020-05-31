@@ -1,5 +1,5 @@
-import React from "react";
-import { Form, Input, Button, Card, message, Space, Select } from "antd";
+import React, { useState } from "react";
+import { Form, Input, Button, Card, message, Space, Select, Modal } from "antd";
 import styles from "./NewEmployeeForm.module.scss";
 
 const success = () => {
@@ -15,14 +15,17 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 9, span: 8 },
+  wrapperCol: { offset: 4, span: 16 },
 };
 
 const NewEmployeeForm = (props) => {
   const departments = props.departments;
   const [form] = Form.useForm();
+  const [modalIsShowing, setModalIsShowing] = useState(false);
+  const [departmentInput, setDepartmentInput] = useState("");
 
   const onFinish = (values) => {
+    console.log(values);
     const fixedFormData = {
       ...values,
       department: { id: values.departmentId },
@@ -41,9 +44,35 @@ const NewEmployeeForm = (props) => {
     form.resetFields();
   };
 
+  const handleCreateDepartmentButton = () => {
+    setModalIsShowing(true);
+  };
+
+  const handleModalOk = () => {
+    props.createDepartment({ name: departmentInput });
+    setDepartmentInput("");
+    setModalIsShowing(false);
+  };
+
+  const handleModalCancel = () => {
+    setModalIsShowing(false);
+    setDepartmentInput("");
+  };
+
   return (
     <>
-      <Space></Space>
+      <Space />
+      <Modal
+        title="Create Department"
+        visible={modalIsShowing}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+      >
+        <Input
+          onChange={(e) => setDepartmentInput(e.target.value)}
+          value={departmentInput}
+        />
+      </Modal>
       <Card className={styles.container} title="Add Employee">
         <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
           <Form.Item name="name" label="Name" rules={[{ required: true }]}>
@@ -83,6 +112,13 @@ const NewEmployeeForm = (props) => {
             </Select>
           </Form.Item>
           <Form.Item {...tailLayout}>
+            <Button
+              htmlType="button"
+              onClick={handleCreateDepartmentButton}
+              className={styles.createDepartmentButton}
+            >
+              Create Department
+            </Button>
             <Button type="primary" htmlType="submit">
               Submit
             </Button>
