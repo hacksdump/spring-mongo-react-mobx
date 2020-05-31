@@ -1,10 +1,12 @@
 import { observable } from "mobx";
-import { getAllEmployees } from "api";
+import { getAllDepartments, getAllEmployees, createEmployee } from "api";
 
 const store = observable({
   employees: [],
+  departments: [],
   fetchStatus: {
     employees: false,
+    departments: false,
   },
   loadEmployees: () => {
     if (!store.fetchStatus.employees) {
@@ -13,6 +15,24 @@ const store = observable({
         store.employees = data;
       });
     }
+  },
+  loadDepartments: () => {
+    if (!store.fetchStatus.departments) {
+      store.fetchStatus.departments = true;
+      getAllDepartments().then((data) => {
+        store.departments = data;
+      });
+    }
+  },
+  createEmployee: (data) => {
+    return new Promise((resolve, reject) => {
+      createEmployee(data)
+        .then(() => {
+          store.fetchStatus.employees = false;
+          resolve();
+        })
+        .catch(() => reject());
+    });
   },
 });
 
