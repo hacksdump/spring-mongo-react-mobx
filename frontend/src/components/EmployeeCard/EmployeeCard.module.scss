@@ -1,8 +1,13 @@
 .card {
   position: relative;
   margin: 10px auto;
-  width: 400px;
+  width: 300px;
   height: 250px;
+  @media (min-width: 500px) {
+    & {
+      width: 400px;
+    }
+  }
 
   .phone {
     font-weight: bold;
