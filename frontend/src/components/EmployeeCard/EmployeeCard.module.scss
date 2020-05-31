@@ -2,12 +2,42 @@
   position: relative;
   margin: 10px auto;
   width: 400px;
-  height: fit-content;
+  height: 250px;
+
   .phone {
     font-weight: bold;
   }
 
   .address {
     font-size: 0.8em;
+  }
+
+  .iconNameContainer {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+
+    .primeData {
+      font-size: larger;
+      margin-left: 10%;
+      .email {
+        font-size: medium;
+      }
+    }
+  }
+
+  .male {
+    background-color: cornflowerblue;
+  }
+
+  .female {
+    background-color: hotpink;
+  }
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  .department {
+    font-size: larger;
   }
 }

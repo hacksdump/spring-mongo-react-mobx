@@ -24,6 +24,11 @@ const RoutedApp = observer((props) => {
               employees: store.employees,
               fetchEmployees: store.loadEmployees,
             }}
+            newEmployeeProps={{
+              departments: store.departments,
+              fetchDepartments: store.loadDepartments,
+              createEmployee: store.createEmployee,
+            }}
           />
         </Layout.Content>
         <Layout.Footer>

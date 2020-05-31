@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 public class Department {
     @Id
     private String id;
-    @Indexed(unique = true)
     @NotNull
     private String name;
 

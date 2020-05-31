@@ -12,7 +12,10 @@ export default function Employees(props) {
           <EmployeeCard
             name={employeeData.name}
             phone={employeeData.phone}
+            email={employeeData.email}
             address={employeeData.address}
+            gender={employeeData.gender}
+            department={employeeData.department}
           />
         ) : null
       )}

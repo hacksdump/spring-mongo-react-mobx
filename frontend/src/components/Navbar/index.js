@@ -8,7 +8,6 @@ function routeToKey(route) {
 }
 
 export default function Navbar(props) {
-  console.log(useLocation().pathname);
   return (
     <nav>
       <Menu

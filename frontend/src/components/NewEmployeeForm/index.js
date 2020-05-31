@@ -1,7 +1,6 @@
 import React from "react";
-import { Form, Input, Button, Card, message, Space } from "antd";
+import { Form, Input, Button, Card, message, Space, Select } from "antd";
 import styles from "./NewEmployeeForm.module.scss";
-import { createEmployee } from "api";
 
 const success = () => {
   message.success("Employee created successfully");
@@ -19,12 +18,18 @@ const tailLayout = {
   wrapperCol: { offset: 9, span: 8 },
 };
 
-const NewEmployeeForm = () => {
+const NewEmployeeForm = (props) => {
+  const departments = props.departments;
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log(values);
-    createEmployee(values)
+    const fixedFormData = {
+      ...values,
+      department: { id: values.departmentId },
+    };
+
+    props
+      .createEmployee(fixedFormData)
       .then((response) => {
         success();
         form.resetFields();
@@ -44,6 +49,9 @@ const NewEmployeeForm = () => {
           <Form.Item name="name" label="Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
+          <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
           <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
@@ -52,7 +60,27 @@ const NewEmployeeForm = () => {
             label="Address"
             rules={[{ required: true }]}
           >
-            <Input />
+            <Input.TextArea className={styles.textarea} />
+          </Form.Item>
+          <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
+            <Select placeholder="Select gender">
+              <Select.Option value="MALE">Male</Select.Option>
+              <Select.Option value="FEMALE">Female</Select.Option>
+              <Select.Option value="UNSPECIFIED">Other</Select.Option>
+            </Select>
+          </Form.Item>
+          <Form.Item
+            name="departmentId"
+            label="Department"
+            rules={[{ required: true }]}
+          >
+            <Select placeholder="Select department">
+              {departments.map((department) => (
+                <Select.Option value={department.id} key={department.id}>
+                  {department.name}
+                </Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit">
