@@ -1,0 +1,8 @@
+FROM openjdk:14-alpine
+
+ADD ./build/libs/rest-0.0.1-SNAPSHOT.jar /opt/
+WORKDIR /opt
+
+EXPOSE 8080
+
+CMD [ "java", "-jar", "rest-0.0.1-SNAPSHOT.jar" ]
