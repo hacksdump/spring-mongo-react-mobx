@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu } from "antd";
 
 function routeToKey(route) {
-  return routeLinkData.find((item) => item.path == route).key;
+  return routeLinkData.find((item) => item.path === route).key;
 }
 
 export default function Navbar(props) {

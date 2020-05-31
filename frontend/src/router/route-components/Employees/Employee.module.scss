@@ -2,6 +2,21 @@
   position: relative;
   margin: 10px auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  height: 100%;
+  grid-template-columns: 1fr;
+  height: fit-content;
+  @media (min-width: 800px) {
+    & {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1200px) {
+    & {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  @media (min-width: 1700px) {
+    & {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
 }

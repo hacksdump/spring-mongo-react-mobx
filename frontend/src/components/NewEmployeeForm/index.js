@@ -14,9 +14,6 @@ const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
 };
-const tailLayout = {
-  wrapperCol: { offset: 4, span: 16 },
-};
 
 const NewEmployeeForm = (props) => {
   const departments = props.departments;
@@ -111,7 +108,7 @@ const NewEmployeeForm = (props) => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item {...tailLayout}>
+          <Form.Item className={styles.buttonContainer}>
             <Button
               htmlType="button"
               onClick={handleCreateDepartmentButton}
@@ -119,11 +116,15 @@ const NewEmployeeForm = (props) => {
             >
               Create Department
             </Button>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-            <Button htmlType="button" onClick={onReset}>
+            <Button
+              htmlType="button"
+              onClick={onReset}
+              className={styles.resetButton}
+            >
               Reset
+            </Button>
+            <Button type="primary" htmlType="submit" size="large">
+              Submit
             </Button>
           </Form.Item>
         </Form>
