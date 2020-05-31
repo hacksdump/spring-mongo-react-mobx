@@ -49,6 +49,7 @@ public class EmployeeController {
     }
 
     @ExceptionHandler(DepartmentDoesNotExistException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public @ResponseBody
     DepartmentDoesNotExistError handleDepartmentDoesNotExistException(
             DepartmentDoesNotExistException e, HttpServletResponse resp) {
@@ -57,6 +58,7 @@ public class EmployeeController {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public @ResponseBody
     MissingFieldsError handleMissingValues(MethodArgumentNotValidException e) {
         var missingFieldsError = new MissingFieldsError();
@@ -73,6 +75,7 @@ public class EmployeeController {
     @ResponseStatus(value = HttpStatus.CONFLICT)
     public @ResponseBody
     AlreadyExistsError handleDuplicateEntry(DuplicateKeyException e) {
+        e.printStackTrace();
         return new AlreadyExistsError("This employee already exists");
     }
 }
